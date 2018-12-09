@@ -15,13 +15,13 @@ for i in range(len(contours)):
     if len(shape == 4):
         squareList.append(contours[i])
 
-x, y, w, h = cv2.boundingRect(squareList[1])
+x, y, w, h = cv2.boundingRect(squareList[1]) # x is top left (x) coordinate, y is top left (y) coordinate, w is length, h is width
 length = w
 width = h
 
 cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
-print("The length is " + str(length))
-print("The width is " + str(width))
+print("The length is " + str(length/96) + " inches") # windows has 96 dpi by default
+print("The width is " + str(width/96) + " inches")
 
 cv2.imshow("image", image)
 cv2.waitKey()

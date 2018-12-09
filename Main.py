@@ -14,7 +14,14 @@ for i in range(len(contours)):
 
     if len(shape == 4):
         squareList.append(contours[i])
-        x, y, w, h = cv2.boundingRect(contours[i])
+
+x, y, w, h = cv2.boundingRect(squareList[1])
+length = w
+width = h
+
+cv2.rectangle(image,(x,y),(x+w,y+h),(0,255,0),2)
+print("The length is " + str(length))
+print("The width is " + str(width))
 
 cv2.imshow("image", image)
 cv2.waitKey()

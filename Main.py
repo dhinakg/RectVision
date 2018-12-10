@@ -8,14 +8,18 @@ image = cv2.imread(img, cv2.IMREAD_COLOR)
 gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 im2, contours, hierarchy = cv2.findContours(gray, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
 
+(screen_h, screen_w) = image.shape[:2] # Gets width and height of screen so that cv2 won't draw a rectangle around the image's frame
+
 for i in range(len(contours)):
     epsilon = 0.1*cv2.arcLength(contours[i], True)
     shape = cv2.approxPolyDP(contours[i], epsilon, True)
 
     if len(shape == 4):
-        squareList.append(contours[i])
+        x, y, w, h = cv2.boundingRect(contours[i]) # x is top left (x) coordinate, y is top left (y) coordinate, w is length, h is width
+        if ((h != screen_h) or (w != screen_w)):
+            squareList.append(contours[i])
 
-x, y, w, h = cv2.boundingRect(squareList[1]) # x is top left (x) coordinate, y is top left (y) coordinate, w is length, h is width
+x, y, w, h = cv2.boundingRect(squareList[0]) # x is top left (x) coordinate, y is top left (y) coordinate, w is length, h is width
 length = w
 width = h
 
